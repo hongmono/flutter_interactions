@@ -54,7 +54,11 @@ class _AppState extends State<App> {
 }
 
 class DynamicIcon {
+  final GlobalKey key;
   final double velocity;
 
-  const DynamicIcon(this.velocity);
+  const DynamicIcon({
+    required this.key,
+    required this.velocity,
+  });
 }
