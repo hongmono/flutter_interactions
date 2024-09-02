@@ -3,3 +3,7 @@ name: interactions
 packages:
   - apps/**
   - packages/**
+
+scripts:
+  analyze:
+    exec: dart analyze .
