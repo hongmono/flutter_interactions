@@ -25,7 +25,7 @@ class BurstIconButton extends StatefulWidget {
     required this.icon,
     this.pressedIcon,
     this.burstIcon,
-    this.duration = const Duration(milliseconds: 1500),
+    this.duration = const Duration(milliseconds: 1200),
     this.throttleDuration = const Duration(milliseconds: 100),
     required this.onPressed,
     this.crossAmplitude,
