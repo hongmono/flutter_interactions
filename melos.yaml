@@ -1,5 +1,7 @@
 name: interactions
 
+repository: https://github.com/hongmono/flutter_interactions
+
 packages:
   - apps/**
   - packages/**
@@ -11,5 +13,8 @@ scripts:
 
 command:
   version:
+    message: |
+      {new_package_versions}
+
     hooks:
       post: echo " Post version command"
