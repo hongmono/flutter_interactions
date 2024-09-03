@@ -1,3 +1,7 @@
+## 0.1.10
+
+ - **FEAT**: change duration.
+
 ## 0.1.9
 
  - **FEAT**: change duration.
