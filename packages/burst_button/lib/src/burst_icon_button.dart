@@ -140,7 +140,7 @@ class _BurstIconButtonState extends State<BurstIconButton> with TickerProviderSt
       key: key,
       controller: controller,
       animation: animation,
-      shake: Random().nextDouble() * 3 - 1.5,
+      shake: Random().nextDouble() - 0.5,
       amplitude: widget.crossAmplitude ?? 10.0,
     );
     _icons.add(icon);
