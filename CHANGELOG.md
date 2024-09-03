@@ -15,6 +15,132 @@ Packages with breaking changes:
 
 Packages with other changes:
 
+ - [`burst_icon_button` - `v0.1.9`](#burst_icon_button---v019)
+
+---
+
+#### `burst_icon_button` - `v0.1.9`
+
+ - **FEAT**: change duration.
+
+
+## 2024-09-03
+
+### Changes
+
+---
+
+Packages with breaking changes:
+
+ - There are no breaking changes in this release.
+
+Packages with other changes:
+
+ - [`burst_icon_button` - `v0.1.8`](#burst_icon_button---v018)
+
+---
+
+#### `burst_icon_button` - `v0.1.8`
+
+ - **FEAT**: change duration.
+
+
+## 2024-09-03
+
+### Changes
+
+---
+
+Packages with breaking changes:
+
+ - There are no breaking changes in this release.
+
+Packages with other changes:
+
+ - [`burst_icon_button` - `v0.1.7`](#burst_icon_button---v017)
+
+---
+
+#### `burst_icon_button` - `v0.1.7`
+
+ - **FEAT**: change duration.
+
+
+## 2024-09-03
+
+### Changes
+
+---
+
+Packages with breaking changes:
+
+ - There are no breaking changes in this release.
+
+Packages with other changes:
+
+ - [`burst_icon_button` - `v0.1.6`](#burst_icon_button---v016)
+
+---
+
+#### `burst_icon_button` - `v0.1.6`
+
+ - **FEAT**: change duration.
+
+
+## 2024-09-03
+
+### Changes
+
+---
+
+Packages with breaking changes:
+
+ - There are no breaking changes in this release.
+
+Packages with other changes:
+
+ - [`burst_icon_button` - `v0.1.5`](#burst_icon_button---v015)
+
+---
+
+#### `burst_icon_button` - `v0.1.5`
+
+ - **FEAT**: change duration.
+
+
+## 2024-09-03
+
+### Changes
+
+---
+
+Packages with breaking changes:
+
+ - There are no breaking changes in this release.
+
+Packages with other changes:
+
+ - [`burst_icon_button` - `v0.1.4`](#burst_icon_button---v014)
+
+---
+
+#### `burst_icon_button` - `v0.1.4`
+
+ - **FEAT**: change duration.
+
+
+## 2024-09-03
+
+### Changes
+
+---
+
+Packages with breaking changes:
+
+ - There are no breaking changes in this release.
+
+Packages with other changes:
+
  - [`burst_icon_button` - `v0.1.3`](#burst_icon_button---v013)
 
 ---
