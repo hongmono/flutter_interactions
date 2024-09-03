@@ -3,6 +3,7 @@ name: interactions
 packages:
   - apps/**
   - packages/**
+  - packages/*/example
 
 scripts:
   analyze:
