@@ -1,4 +1,4 @@
-import 'package:burst_button/burst_button.dart';
+import 'package:burst_icon_button/burst_icon_button.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -40,9 +40,10 @@ class _AppState extends State<App> with TickerProviderStateMixin {
         title: Text(widget.title),
       ),
       body: Center(
-        child: BurstButton(
-          icon: const Icon(Icons.favorite),
-          pressedIcon: const Icon(Icons.favorite_border),
+        child: BurstIconButton(
+          icon: const Icon(Icons.favorite_border),
+          pressedIcon: const Icon(Icons.favorite),
+          burstIcon: const Icon(Icons.heart_broken),
           onPressed: () {},
         ),
       ),

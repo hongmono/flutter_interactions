@@ -8,36 +8,42 @@ class _IconData {
   final AnimationController controller;
   final Animation<double> animation;
   final double shake;
+  final double amplitude;
 
   const _IconData({
     required this.key,
     required this.controller,
     required this.animation,
     required this.shake,
+    required this.amplitude,
   });
 }
 
-class BurstButton extends StatefulWidget {
-  const BurstButton({
+class BurstIconButton extends StatefulWidget {
+  const BurstIconButton({
     super.key,
     required this.icon,
     this.pressedIcon,
+    this.burstIcon,
     this.duration = const Duration(milliseconds: 1500),
     this.throttleDuration = const Duration(milliseconds: 100),
     required this.onPressed,
+    this.crossAmplitude,
   });
 
   final Icon icon;
   final Icon? pressedIcon;
+  final Icon? burstIcon;
   final Duration duration;
   final Duration throttleDuration;
   final VoidCallback? onPressed;
+  final double? crossAmplitude;
 
   @override
-  State<BurstButton> createState() => _BurstButtonState();
+  State<BurstIconButton> createState() => _BurstIconButtonState();
 }
 
-class _BurstButtonState extends State<BurstButton> with TickerProviderStateMixin {
+class _BurstIconButtonState extends State<BurstIconButton> with TickerProviderStateMixin {
   late final Duration _duration = widget.duration;
 
   Timer? _timer;
@@ -60,7 +66,7 @@ class _BurstButtonState extends State<BurstButton> with TickerProviderStateMixin
             builder: (context, child) {
               return Transform.translate(
                 offset: Offset(
-                  10 * sin(icon.animation.value * pi * icon.shake),
+                  icon.amplitude * sin(icon.animation.value * pi * icon.shake),
                   -100 * icon.animation.value * _iconSizeFactor,
                 ),
                 child: FadeTransition(
@@ -68,7 +74,7 @@ class _BurstButtonState extends State<BurstButton> with TickerProviderStateMixin
                     begin: 1.0,
                     end: 0.0,
                   ).animate(icon.animation),
-                  child: widget.icon,
+                  child: widget.burstIcon ?? widget.icon,
                 ),
               );
             },
@@ -135,6 +141,7 @@ class _BurstButtonState extends State<BurstButton> with TickerProviderStateMixin
       controller: controller,
       animation: animation,
       shake: Random().nextDouble() * 3 - 1.5,
+      amplitude: widget.crossAmplitude ?? 10.0,
     );
     _icons.add(icon);
     controller.forward();
