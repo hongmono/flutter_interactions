@@ -8,3 +8,7 @@ packages:
 scripts:
   analyze:
     exec: dart analyze .
+
+command:
+  version:
+    message: { new_version }
