@@ -1,3 +1,7 @@
+## 0.0.4
+
+ - **FEAT**: duration".
+
 ## 0.0.3
 
  - **FEAT**: duration.
