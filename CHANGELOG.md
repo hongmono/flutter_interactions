@@ -15,6 +15,28 @@ Packages with breaking changes:
 
 Packages with other changes:
 
+ - [`burst_icon_button` - `v0.0.3`](#burst_icon_button---v003)
+
+---
+
+#### `burst_icon_button` - `v0.0.3`
+
+ - **FEAT**: duration.
+ - **FEAT**: duration.
+
+
+## 2024-09-03
+
+### Changes
+
+---
+
+Packages with breaking changes:
+
+ - There are no breaking changes in this release.
+
+Packages with other changes:
+
  - [`burst_icon_button` - `v0.0.2`](#burst_icon_button---v002)
 
 ---
