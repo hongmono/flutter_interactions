@@ -1,16 +1,3 @@
-## 0.1.13
-
- - **FEAT**: change duration.
- - **FEAT**: change duration.
- - **FEAT**: change duration.
- - **FEAT**: change duration".
-
-## 0.1.12
-
- - **FEAT**: change duration.
- - **FEAT**: change duration.
- - **FEAT**: change duration".
-
 ## 0.1.11
 
  - **FEAT**: change duration.

@@ -11,8 +11,5 @@ scripts:
 
 command:
   version:
-    message: |
-      {new_version}
-
     hooks:
-      post: echo "{MELOS_PACKAGE_VERSION} Post version command"
+      post: echo " Post version command"
