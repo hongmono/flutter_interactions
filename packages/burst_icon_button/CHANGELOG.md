@@ -1,3 +1,11 @@
+## 0.1.3
+
+ - **FEAT**: change duration.
+
+## 0.1.2
+
+ - **FEAT**: change duration.
+
 ## 0.1.1
 
  - **FIX**: remove example.
