@@ -11,6 +11,28 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 Packages with breaking changes:
 
+ - There are no breaking changes in this release.
+
+Packages with other changes:
+
+ - [`burst_icon_button` - `v0.1.1`](#burst_icon_button---v011)
+
+---
+
+#### `burst_icon_button` - `v0.1.1`
+
+ - **FIX**: remove example.
+ - **FEAT**: create example.
+
+
+## 2024-09-03
+
+### Changes
+
+---
+
+Packages with breaking changes:
+
  - [`burst_icon_button` - `v0.1.0`](#burst_icon_button---v010)
 
 Packages with other changes:
