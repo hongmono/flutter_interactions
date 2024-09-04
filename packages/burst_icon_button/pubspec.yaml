@@ -1,6 +1,6 @@
 name: burst_icon_button
 description: "눌렀을 때나 길게 눌렀을 때 아이콘이 터지는 효과를 만드는 커스터마이즈 가능한 Flutter 위젯입니다. 앱의 버튼에 매력적인 애니메이션을 추가하기에 완벽합니다."
-version: 0.1.25
+version: 0.1.26
 homepage: https://github.com/hongmono/flutter_interactions
 
 environment:
