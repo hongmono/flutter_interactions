@@ -3,6 +3,27 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 2024-09-04
+
+### Changes
+
+---
+
+Packages with breaking changes:
+
+ - There are no breaking changes in this release.
+
+Packages with other changes:
+
+ - [`burst_icon_button` - `v0.1.22`](#burst_icon_button---v0122)
+
+---
+
+#### `burst_icon_button` - `v0.1.22`
+
+ - **FEAT**: asdf. ([77d480d7](https://github.com/hongmono/flutter_interactions/commit/77d480d7b0485d053de3e29bc92a4dc1213b6368))
+
+
 ## 2024-09-03
 
 ### Changes

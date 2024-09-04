@@ -1,3 +1,7 @@
+## 0.1.22
+
+ - **FEAT**: asdf. ([77d480d7](https://github.com/hongmono/flutter_interactions/commit/77d480d7b0485d053de3e29bc92a4dc1213b6368))
+
 ## 0.1.21
 
  - **FEAT**: change duration.
