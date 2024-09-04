@@ -15,6 +15,27 @@ Packages with breaking changes:
 
 Packages with other changes:
 
+ - [`burst_icon_button` - `v0.1.24`](#burst_icon_button---v0124)
+
+---
+
+#### `burst_icon_button` - `v0.1.24`
+
+ - **FEAT**: asdf. ([613c9bc5](https://github.com/hongmono/flutter_interactions/commit/613c9bc5d16d3ff02d2e3fc49172ee81a1d16bc6))
+
+
+## 2024-09-04
+
+### Changes
+
+---
+
+Packages with breaking changes:
+
+ - There are no breaking changes in this release.
+
+Packages with other changes:
+
  - [`burst_icon_button` - `v0.1.23`](#burst_icon_button---v0123)
 
 ---

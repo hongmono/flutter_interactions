@@ -1,3 +1,7 @@
+## 0.1.24
+
+ - **FEAT**: asdf. ([613c9bc5](https://github.com/hongmono/flutter_interactions/commit/613c9bc5d16d3ff02d2e3fc49172ee81a1d16bc6))
+
 ## 0.1.23
 
  - **FEAT**: asdf. ([27ffe1a5](https://github.com/hongmono/flutter_interactions/commit/27ffe1a5eb3d6ef915bd10daf36f56692e87e7ca))
