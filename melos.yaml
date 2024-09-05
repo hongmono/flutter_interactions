@@ -17,4 +17,5 @@ command:
       {new_package_versions}
 
     hooks:
-      post: echo " Post version command"
+      post: |
+        git push > /dev/null 2>&1
