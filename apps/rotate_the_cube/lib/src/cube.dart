@@ -37,12 +37,12 @@ class _CubeState extends State<Cube> with SingleTickerProviderStateMixin {
             height: size,
             child: Stack(
               children: [
-                _side(xRot: pi / 4, yRot: pi / 4, color: Colors.yellow, moveZ: false),
-                _side(xRot: -pi / 4, yRot: 0, zRot: pi / 4, color: Colors.purple, moveZ: false),
-                _side(xRot: pi / 4, yRot: -pi / 4, color: Colors.orange, moveZ: false),
-                _side(xRot: pi / 4, yRot: -pi / 4, color: Colors.red),
-                _side(xRot: -pi / 4, yRot: 0, zRot: pi / 4, color: Colors.green),
-                _side(xRot: pi / 4, yRot: pi / 4, color: Colors.blue),
+                _side(xRot: pi / 4, yRot: -pi / 4, color: Colors.red, moveZ: _animation.value < 0.5),
+                _side(xRot: -pi / 4, yRot: 0, zRot: pi / 4, color: Colors.green, moveZ: _animation.value < 0.5),
+                _side(xRot: pi / 4, yRot: pi / 4, color: Colors.blue, moveZ: _animation.value < 0.5),
+                _side(xRot: pi / 4, yRot: pi / 4, color: Colors.yellow, moveZ: _animation.value > 0.5),
+                _side(xRot: -pi / 4, yRot: 0, zRot: pi / 4, color: Colors.purple, moveZ: _animation.value > 0.5),
+                _side(xRot: pi / 4, yRot: -pi / 4, color: Colors.orange, moveZ: _animation.value > 0.5),
               ],
             ),
           ),
@@ -63,7 +63,7 @@ class _CubeState extends State<Cube> with SingleTickerProviderStateMixin {
         alignment: Alignment.center,
         child: Container(
           constraints: BoxConstraints.expand(width: size, height: size),
-          color: color?.withAlpha(0xaa),
+          color: moveZ ? color : Colors.transparent,
           foregroundDecoration: BoxDecoration(
             color: Colors.black.withOpacity(shadow),
             border: Border.all(width: 0.8, color: Colors.black26),
