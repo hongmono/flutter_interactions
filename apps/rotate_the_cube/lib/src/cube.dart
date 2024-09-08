@@ -30,7 +30,9 @@ class Cube extends StatelessWidget {
         width: size,
         height: size,
         child: Stack(
-          children: CubeSide.values.where((side) => _isVisible(side, rotateX, rotateY, rotateZ)).map((side) => _buildSide(side)).toList(),
+          children: [
+            ...CubeSide.values.where((side) => _isVisible(side, rotateX, rotateY, rotateZ)).map((side) => _buildSide(side)),
+          ],
         ),
       ),
     );
@@ -52,7 +54,7 @@ class Cube extends StatelessWidget {
           border: Border.all(width: 0.8, color: Colors.black26),
         ),
         alignment: Alignment.center,
-        child: Text(side.name),
+        child: Transform.flip(flipY: side == CubeSide.front ? false : true, child: Text(side.name)),
       ),
     );
   }
@@ -66,25 +68,14 @@ class Cube extends StatelessWidget {
     final cosY = cos(rotateY);
     final sinY = sin(rotateY);
 
-    switch (side) {
-      case CubeSide.front:
-        return cosX * cosY > 0;
-      case CubeSide.back:
-        return cosX * cosY < 0;
-      case CubeSide.right:
-        return cosX * sinY > 0;
-      case CubeSide.left:
-        return cosX * sinY < 0;
-      case CubeSide.top:
-        return sinX > 0;
-      case CubeSide.bottom:
-        return sinX < 0;
-    }
-  }
-
-  double _normalizeAngle(double angle) {
-    angle = angle % (2 * pi);
-    return angle > pi ? angle - 2 * pi : (angle < -pi ? angle + 2 * pi : angle);
+    return switch (side) {
+      CubeSide.front => cosX * cosY > 0,
+      CubeSide.back => cosX * cosY < 0,
+      CubeSide.right => cosX * sinY > 0,
+      CubeSide.left => cosX * sinY < 0,
+      CubeSide.top => sinX > 0,
+      CubeSide.bottom => sinX < 0,
+    };
   }
 
   _SideConfig _getSideConfig(CubeSide side) => switch (side) {
