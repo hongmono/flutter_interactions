@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:rotate_the_cube/src/cube.dart';
 
@@ -31,7 +33,17 @@ class App extends StatefulWidget {
   State<App> createState() => _AppState();
 }
 
-class _AppState extends State<App> {
+class _AppState extends State<App> with TickerProviderStateMixin {
+  late final AnimationController _controller = AnimationController(
+    vsync: this,
+    duration: const Duration(seconds: 10),
+  )..repeat();
+
+  late final Animation<double> _animation = CurvedAnimation(
+    parent: _controller,
+    curve: Curves.linear,
+  );
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -39,11 +51,21 @@ class _AppState extends State<App> {
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: Text(widget.title),
       ),
-      body: const Center(
+      body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Cube(),
+            AnimatedBuilder(
+              animation: _animation,
+              builder: (context, child) {
+                return Cube(
+                  size: 100.0,
+                  // rotateX: _animation.value * 2 * pi,
+                  rotateY: _animation.value * 2 * pi,
+                  rotateZ: pi / 4,
+                );
+              },
+            ),
           ],
         ),
       ),
