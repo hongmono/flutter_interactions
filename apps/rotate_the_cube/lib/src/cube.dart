@@ -1,9 +1,9 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
 
-enum _CubeSide { front, right, left, back, top, bottom }
+enum CubeSide { front, right, left, back, top, bottom }
 
-class Cube extends StatefulWidget {
+class Cube extends StatelessWidget {
   const Cube({
     super.key,
     this.size = 100.0,
@@ -18,149 +18,97 @@ class Cube extends StatefulWidget {
   final double rotateZ;
 
   @override
-  State<Cube> createState() => _CubeState();
-}
-
-class _CubeState extends State<Cube> {
-  late double size;
-  late double _rotateX;
-  late double _rotateY;
-  late double _rotateZ;
-
-  @override
-  void initState() {
-    super.initState();
-
-    size = widget.size;
-
-    _rotateX = widget.rotateX;
-    _rotateY = widget.rotateY;
-    _rotateZ = widget.rotateZ;
-  }
-
-  @override
-  void didUpdateWidget(covariant Cube oldWidget) {
-    super.didUpdateWidget(oldWidget);
-
-    if (widget.size != oldWidget.size) {
-      size = widget.size;
-    }
-
-    if (widget.rotateX != oldWidget.rotateX) {
-      _rotateX = normalizeAngle(widget.rotateX);
-    }
-
-    if (widget.rotateY != oldWidget.rotateY) {
-      _rotateY = normalizeAngle(widget.rotateY);
-    }
-
-    if (widget.rotateZ != oldWidget.rotateZ) {
-      _rotateZ = normalizeAngle(widget.rotateZ);
-    }
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Transform(
       alignment: Alignment.center,
       transform: Matrix4.identity()
         ..setEntry(3, 2, 0.001)
-        ..rotateX(widget.rotateX)
-        ..rotateY(widget.rotateY)
-        ..rotateZ(widget.rotateZ),
+        ..rotateX(rotateX)
+        ..rotateY(rotateY)
+        ..rotateZ(rotateZ),
       child: SizedBox(
         width: size,
         height: size,
         child: Stack(
-          children: [
-            if (_isVisible(_CubeSide.front)) _side(_CubeSide.front, color: Colors.red, moveZ: true),
-            if (_isVisible(_CubeSide.right)) _side(_CubeSide.right, yRot: pi / 2, color: Colors.green),
-            if (_isVisible(_CubeSide.left)) _side(_CubeSide.left, yRot: -pi / 2, color: Colors.blue),
-            if (_isVisible(_CubeSide.back)) _side(_CubeSide.back, color: Colors.yellow),
-            if (_isVisible(_CubeSide.top)) _side(_CubeSide.top, xRot: pi / 2, color: Colors.purple),
-            if (_isVisible(_CubeSide.bottom)) _side(_CubeSide.bottom, xRot: -pi / 2, color: Colors.orange),
-          ],
+          children: CubeSide.values.where((side) => _isVisible(side, rotateX, rotateY, rotateZ)).map((side) => _buildSide(side)).toList(),
         ),
       ),
     );
   }
 
-  Widget _side(
-    _CubeSide side, {
-    bool moveZ = false,
-    double xRot = 0.0,
-    double yRot = 0.0,
-    double zRot = 0.0,
-    double shadow = 0.0,
-    Color? color,
-  }) {
+  Widget _buildSide(CubeSide side) {
+    final sideConfig = _getSideConfig(side);
     return Transform(
       alignment: Alignment.center,
       transform: Matrix4.identity()
-        ..rotateX(xRot)
-        ..rotateY(yRot)
-        ..rotateZ(zRot)
-        ..translate(0.0, 0.0, moveZ ? -size / 2 : size / 2),
+        ..rotateX(sideConfig.xRot)
+        ..rotateY(sideConfig.yRot)
+        ..rotateZ(sideConfig.zRot)
+        ..translate(0.0, 0.0, sideConfig.moveZ ? -size / 2 : size / 2),
       child: Container(
-        alignment: Alignment.center,
-        child: Container(
-          constraints: BoxConstraints.expand(width: size, height: size),
-          color: color,
-          foregroundDecoration: BoxDecoration(border: Border.all(width: 0.8, color: Colors.black26)),
-          alignment: Alignment.center,
-          child: Text(side.name),
+        constraints: BoxConstraints.expand(width: size, height: size),
+        color: sideConfig.color,
+        foregroundDecoration: BoxDecoration(
+          border: Border.all(width: 0.8, color: Colors.black26),
         ),
+        alignment: Alignment.center,
+        child: Text(side.name),
       ),
     );
   }
 
-  bool _isVisible(_CubeSide side) {
-    if (side == _CubeSide.front) {
-      final x = _rotateX < pi / 2 && _rotateX > -pi / 2;
-      final y = _rotateY < pi / 2 && _rotateY > -pi / 2;
+  bool _isVisible(CubeSide side, double rotateX, double rotateY, double rotateZ) {
+    // X축 회전에 대한 보정
+    final cosX = cos(rotateX);
+    final sinX = sin(rotateX);
 
-      return x && y;
-    } else if (side == _CubeSide.right) {
-      final x = _rotateX < pi / 2 && _rotateX > -pi / 2;
-      final y = _rotateY < 2 * pi / 2 && _rotateY > 0;
+    // Y축 회전에 대한 보정
+    final cosY = cos(rotateY);
+    final sinY = sin(rotateY);
 
-      return x && y;
-    } else if (side == _CubeSide.left) {
-      final x = _rotateX < pi / 2 && _rotateX > -pi / 2;
-      final y = _rotateY < 0 && _rotateY > -pi;
-
-      return x && y;
-    } else if (side == _CubeSide.back) {
-      final x = _rotateX < pi / 2 && _rotateX > -pi / 2;
-      final y = _rotateY < -pi / 2 || _rotateY > pi / 2;
-
-      return x && y;
-    } else if (side == _CubeSide.top) {
-      final x = _rotateX > 0 && _rotateX < pi;
-      final z = _rotateZ > 0 && _rotateZ < pi;
-
-      return x && z;
-    } else if (side == _CubeSide.bottom) {
-      final x = _rotateX > 0 && _rotateX < pi;
-      final z = _rotateZ < 0 && _rotateZ > -pi;
-
-      return x && z;
+    switch (side) {
+      case CubeSide.front:
+        return cosX * cosY > 0;
+      case CubeSide.back:
+        return cosX * cosY < 0;
+      case CubeSide.right:
+        return cosX * sinY > 0;
+      case CubeSide.left:
+        return cosX * sinY < 0;
+      case CubeSide.top:
+        return sinX > 0;
+      case CubeSide.bottom:
+        return sinX < 0;
     }
-    return false;
   }
 
-  /// 각도를 -π에서 π 사이로 정규화합니다.
-  double normalizeAngle(double angle) {
-    // 2π로 나눈 나머지를 구합니다.
+  double _normalizeAngle(double angle) {
     angle = angle % (2 * pi);
-
-    // -π에서 π 사이의 값으로 조정합니다.
-    if (angle > pi) {
-      angle -= 2 * pi;
-    } else if (angle < -pi) {
-      angle += 2 * pi;
-    }
-
-    return angle;
+    return angle > pi ? angle - 2 * pi : (angle < -pi ? angle + 2 * pi : angle);
   }
+
+  _SideConfig _getSideConfig(CubeSide side) => switch (side) {
+        CubeSide.front => const _SideConfig(color: Colors.red, moveZ: true),
+        CubeSide.right => const _SideConfig(color: Colors.green, yRot: pi / 2),
+        CubeSide.left => const _SideConfig(color: Colors.blue, yRot: -pi / 2),
+        CubeSide.back => const _SideConfig(color: Colors.yellow),
+        CubeSide.top => const _SideConfig(color: Colors.purple, xRot: pi / 2),
+        CubeSide.bottom => const _SideConfig(color: Colors.orange, xRot: -pi / 2),
+      };
+}
+
+class _SideConfig {
+  final Color color;
+  final bool moveZ;
+  final double xRot;
+  final double yRot;
+  final double zRot;
+
+  const _SideConfig({
+    required this.color,
+    this.moveZ = false,
+    this.xRot = 0.0,
+    this.yRot = 0.0,
+    this.zRot = 0.0,
+  });
 }

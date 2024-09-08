@@ -60,9 +60,8 @@ class _AppState extends State<App> with TickerProviderStateMixin {
               builder: (context, child) {
                 return Cube(
                   size: 100.0,
-                  // rotateX: _animation.value * 2 * pi,
+                  rotateX: _animation.value * 2 * pi,
                   rotateY: _animation.value * 2 * pi,
-                  rotateZ: pi / 4,
                 );
               },
             ),
