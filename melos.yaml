@@ -10,12 +10,3 @@ packages:
 scripts:
   analyze:
     exec: dart analyze .
-
-command:
-  version:
-    message: |
-      {new_package_versions}
-
-    hooks:
-      post: |
-        git push > /dev/null 2>&1
