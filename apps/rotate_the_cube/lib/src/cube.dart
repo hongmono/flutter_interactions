@@ -22,7 +22,7 @@ class Cube extends StatelessWidget {
     return Transform(
       alignment: Alignment.center,
       transform: Matrix4.identity()
-        ..setEntry(3, 2, 0.001)
+        ..setEntry(3, 2, 0.002)
         ..rotateX(rotateX)
         ..rotateY(rotateY)
         ..rotateZ(rotateZ),
@@ -31,7 +31,7 @@ class Cube extends StatelessWidget {
         height: size,
         child: Stack(
           children: [
-            ...CubeSide.values.where((side) => _isVisible(side, rotateX, rotateY, rotateZ)).map((side) => _buildSide(side)),
+            ..._getVisibleSides(rotateX, rotateY, rotateZ).map((side) => _buildSide(side)),
           ],
         ),
       ),
@@ -49,7 +49,8 @@ class Cube extends StatelessWidget {
         ..translate(0.0, 0.0, sideConfig.moveZ ? -size / 2 : size / 2),
       child: Container(
         constraints: BoxConstraints.expand(width: size, height: size),
-        color: sideConfig.color,
+        // color: sideConfig.color,
+        color: Colors.white,
         foregroundDecoration: BoxDecoration(
           border: Border.all(width: 0.8, color: Colors.black26),
         ),
@@ -59,7 +60,7 @@ class Cube extends StatelessWidget {
     );
   }
 
-  bool _isVisible(CubeSide side, double rotateX, double rotateY, double rotateZ) {
+  List<CubeSide> _getVisibleSides(double rotateX, double rotateY, double rotateZ) {
     // X축 회전에 대한 보정
     final cosX = cos(rotateX);
     final sinX = sin(rotateX);
@@ -68,14 +69,32 @@ class Cube extends StatelessWidget {
     final cosY = cos(rotateY);
     final sinY = sin(rotateY);
 
-    return switch (side) {
-      CubeSide.front => cosX * cosY > 0,
-      CubeSide.back => cosX * cosY < 0,
-      CubeSide.right => cosX * sinY > 0,
-      CubeSide.left => cosX * sinY < 0,
-      CubeSide.top => sinX > 0,
-      CubeSide.bottom => sinX < 0,
-    };
+    List<(CubeSide, double)> visibleSides = [];
+
+    final frontBack = cosX * cosY;
+    if (frontBack > 0) {
+      visibleSides.add((CubeSide.front, frontBack.abs()));
+    } else if (frontBack < 0) {
+      visibleSides.add((CubeSide.back, frontBack.abs()));
+    }
+
+    final side = cosX * sinY;
+    if (side > 0) {
+      visibleSides.add((CubeSide.right, side.abs()));
+    } else if (side < 0) {
+      visibleSides.add((CubeSide.left, side.abs()));
+    }
+
+    final topBottom = sinX;
+    if (topBottom > 0) {
+      visibleSides.add((CubeSide.top, topBottom.abs()));
+    } else if (topBottom < 0) {
+      visibleSides.add((CubeSide.bottom, topBottom.abs()));
+    }
+
+    visibleSides.sort((a, b) => a.$2.compareTo(b.$2));
+
+    return visibleSides.map((e) => e.$1).toList();
   }
 
   _SideConfig _getSideConfig(CubeSide side) => switch (side) {

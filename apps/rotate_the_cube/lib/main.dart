@@ -36,7 +36,7 @@ class App extends StatefulWidget {
 class _AppState extends State<App> with TickerProviderStateMixin {
   late final AnimationController _controller = AnimationController(
     vsync: this,
-    duration: const Duration(seconds: 10),
+    duration: const Duration(milliseconds: 10000),
   )..repeat();
 
   late final Animation<double> _animation = CurvedAnimation(
@@ -61,7 +61,7 @@ class _AppState extends State<App> with TickerProviderStateMixin {
                 return Cube(
                   size: 100.0,
                   rotateX: _animation.value * 2 * pi,
-                  rotateY: _animation.value * 2 * pi,
+                  rotateY: _animation.value * 4 * pi,
                 );
               },
             ),
