@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 
+enum FloatingWidgetSnap { none, side, edge }
+
 class FloatingWidget extends StatefulWidget {
   const FloatingWidget({
     super.key,
     required this.floatingWidget,
     this.initialPosition,
     this.padding = EdgeInsets.zero,
-    this.isSnapToEdges = true,
+    this.snap = FloatingWidgetSnap.side,
     required this.child,
   });
 
@@ -14,7 +16,7 @@ class FloatingWidget extends StatefulWidget {
   final Offset? initialPosition;
   final Widget child;
   final EdgeInsets padding;
-  final bool isSnapToEdges;
+  final FloatingWidgetSnap snap;
 
   @override
   State<FloatingWidget> createState() => _FloatingWidgetState();
@@ -30,7 +32,7 @@ class _FloatingWidgetState extends State<FloatingWidget> {
           floatingWidget: widget.floatingWidget,
           initialPosition: widget.initialPosition,
           padding: widget.padding,
-          isSnapToEdges: widget.isSnapToEdges,
+          snap: widget.snap,
         ),
       ],
     );
@@ -42,13 +44,13 @@ class _TargetWidget extends StatefulWidget {
     required this.floatingWidget,
     this.initialPosition,
     this.padding = EdgeInsets.zero,
-    required this.isSnapToEdges,
+    required this.snap,
   });
 
   final Widget floatingWidget;
   final Offset? initialPosition;
   final EdgeInsets padding;
-  final bool isSnapToEdges;
+  final FloatingWidgetSnap snap;
 
   @override
   State<_TargetWidget> createState() => _TargetWidgetState();
@@ -135,7 +137,7 @@ class _TargetWidgetState extends State<_TargetWidget> with SingleTickerProviderS
     double topBoundary = widget.padding.top;
     double bottomBoundary = screenSize.height - _floatingWidgetSize.height - widget.padding.bottom;
 
-    if (widget.isSnapToEdges) {
+    if (widget.snap == FloatingWidgetSnap.side) {
       // 가장 가까운 벽 찾기
       double distanceToLeft = (position.dx - leftBoundary).abs();
       double distanceToRight = (position.dx - rightBoundary).abs();
@@ -153,10 +155,27 @@ class _TargetWidgetState extends State<_TargetWidget> with SingleTickerProviderS
         3 => Offset(position.dx, bottomBoundary),
         _ => throw Exception('Invalid index: $minIndex'),
       };
-    } else {
-      // 화면 밖으로 나가지 않도록 제한
-      newPosition = Offset(newPosition.dx.clamp(leftBoundary, rightBoundary), newPosition.dy.clamp(topBoundary, bottomBoundary));
-    }
+    } else if (widget.snap == FloatingWidgetSnap.edge) {
+      // 가장 가까운 모서리 찾기
+      double distanceToTopLeft = (position - Offset(leftBoundary, topBoundary)).distance;
+      double distanceToTopRight = (position - Offset(rightBoundary, topBoundary)).distance;
+      double distanceToBottomLeft = (position - Offset(leftBoundary, bottomBoundary)).distance;
+      double distanceToBottomRight = (position - Offset(rightBoundary, bottomBoundary)).distance;
+
+      final min = [distanceToTopLeft, distanceToTopRight, distanceToBottomLeft, distanceToBottomRight].reduce((a, b) => a < b ? a : b);
+      final minIndex = [distanceToTopLeft, distanceToTopRight, distanceToBottomLeft, distanceToBottomRight].indexOf(min);
+
+      /// 가장 가까운 모서리 선택
+      newPosition = switch (minIndex) {
+        0 => Offset(leftBoundary, topBoundary),
+        1 => Offset(rightBoundary, topBoundary),
+        2 => Offset(leftBoundary, bottomBoundary),
+        3 => Offset(rightBoundary, bottomBoundary),
+        _ => throw Exception('Invalid index: $minIndex'),
+      };
+    } else {}
+
+    newPosition = Offset(newPosition.dx.clamp(leftBoundary, rightBoundary), newPosition.dy.clamp(topBoundary, bottomBoundary));
 
     _animation = Tween<Offset>(
       begin: position,
